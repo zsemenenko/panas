@@ -1,6 +1,9 @@
 #!/bin/bash
 SYSTEMD=/etc/systemd/system
 
+/usr/bin/docker pull wartech/api-gis:standalone &&
+/usr/bin/docker pull wartech/postgres-plastun:latest &&
+
 echo -e "\e[96mCreating working directory"
 echo -e "Created /var/postgres is\e[97m"
 sudo mkdir -p /var/postgres
@@ -38,7 +41,7 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStart=/usr/bin/docker run --rm --name postgres -p 5432:5432 -v /var/postgres/:/var/lib/postgresql/data -e "POSTGRES_PASSWORD=postgres" wartech/postgres-plastun
+ExecStart=/usr/bin/docker run --rm --name postgres -p 5432:5432 -v /var/postgres/:/var/lib/postgresql/data -e "POSTGRES_PASSWORD=postgres" wartech/postgres-plastun:latest
 ExecStop=/usr/bin/docker rm -f postgres
 [Install]
 WantedBy=multi-user.target" > $PWD/postgres.service

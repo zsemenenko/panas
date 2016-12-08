@@ -4,7 +4,7 @@ SYSTEMD=/etc/systemd/system
 /usr/bin/docker pull wartech/api-gis:standalone &&
 /usr/bin/docker pull wartech/postgres-plastun:latest &&
 
-echo -e "\e[96mCreating working directory"
+echo -e "\n\e[96mCreating working directory"
 echo -e "Created /var/postgres is\e[97m"
 sudo mkdir -p /var/postgres
 sudo ls -lha /var/postgres

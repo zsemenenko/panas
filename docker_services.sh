@@ -5,15 +5,15 @@ echo -e "\e[96mCreating working directory"
 echo -e "Created /var/postgres is\e[97m"
 sudo mkdir -p /var/postgres
 sudo ls -lha /var/postgres
- 
+
 echo -e "\e[96m\nCreated /home/devops/mapUpdates is\e[97m"
-mkdir -p /home/devops/mapUpdates
-ls -lha /home/devops/mapUpdates
- 
+mkdir -p $HOME/mapUpdates
+ls -lha $HOME/mapUpdates
+
 echo -e "\e[96m\nCreated /home/devops/tilecache/g.h is\e[97m"
-mkdir -p /home/devops/tilecache/g.h
-ls -lha /home/devops/tilecache/g.h
- 
+mkdir -p $HOME/tilecache/g.h
+ls -lha $HOME/tilecache/g.h
+
 echo -e "\n\e[96mCreating systemd services files"
 echo "[Unit]
 Description=api-gis Docker Container
@@ -27,10 +27,10 @@ ExecStop=/usr/bin/docker rm -f api-gis
 [Install]
 WantedBy=multi-user.target" > $PWD/api-gis.service
 sudo mv $PWD/api-gis.service $SYSTEMD/api-gis.service
- 
+
 echo -e "Created $SYSTEMD/api-gis.service is\e[97m"
 sudo cat $SYSTEMD/api-gis.service
- 
+
 echo "[Unit]
 Description=postgres Docker Container
 After=docker.service
@@ -43,15 +43,14 @@ ExecStop=/usr/bin/docker rm -f postgres
 [Install]
 WantedBy=multi-user.target" > $PWD/postgres.service
 sudo mv $PWD/postgres.service $SYSTEMD/postgres.service
- 
+
 echo -e "\e[96m\nCreated $SYSTEMD/postgres.service is\e[97m"
 sudo cat $SYSTEMD/postgres.service
- 
- 
+
 sudo systemctl daemon-reload
 sudo systemctl enable postgres.service
 sudo systemctl enable api-gis.service
- 
+
 echo -e "\e[96m\nUsage\nPostgres service:\n\e[97msudo service postgres start|stop|restart|status\n\n\e[96mApi-gis service:\n\e[97msudo service postgres start|stop|restart|status"
- 
+
 exit 0 

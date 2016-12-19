@@ -25,7 +25,7 @@ Requires=postgres.service docker.service
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStart=/usr/bin/docker run --rm --name api-gis -p 8081:8081 -v /home/devops/tilecache/:/usr/src/app/cache/ -v /home/vess/services/mapUpdates/:/usr/src/app/mapUpdates wartech/api-gis:standalone
+ExecStart=/usr/bin/docker run --rm --name api-gis -p 8081:8081 -v /home/devops/tilecache/:/usr/src/app/cache/ -v /home/devops/services/mapUpdates/:/usr/src/app/mapUpdates wartech/api-gis:standalone
 ExecStop=/usr/bin/docker rm -f api-gis
 [Install]
 WantedBy=multi-user.target" > $PWD/api-gis.service

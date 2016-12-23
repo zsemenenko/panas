@@ -41,7 +41,7 @@ fi
 
 clear
 
-printdevid=$(ip a | awk '/enp*s*/ {print $2}')
+printdevid=$(ip link | awk '/enp/{print $2}')
 echo "Your device ID: $printdevid"
 echo "Let's set up a static ip address for your site"
 echo ""

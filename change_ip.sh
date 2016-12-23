@@ -2,7 +2,8 @@
 
 getinfo()
 {
-  read -p "Enter the ip address for your server: (looks like 192.168.22.17)  " staticip
+  read -p "Enter the network device id of your laptop: (looks like enp0s3)  " devid
+  read -p "Enter the ip address for your laptop: (looks like 165)  " staticip
 }
 
 writeinterfacefile()
@@ -15,8 +16,9 @@ auto lo
 iface lo inet loopback
 
 #Your static network configuration  
-iface enp0s3 inet static
-	address $staticip
+auto $devid
+iface $devid inet static
+	address 192.168.22.$staticip
 	netmask 255.255.252.0
 	gateway 192.168.20.1
 	dns-nameservers 192.168.20.1
@@ -38,13 +40,17 @@ if [ ! -f $file ]; then
 fi
 
 clear
+
+printdevid=$(ip a | awk '/enp*s*/ {print $2}')
+echo "Yout device ID: $printdevid"
 echo "Let's set up a static ip address for your site"
 echo ""
 
 getinfo
 echo ""
 echo "So your settings are:"
-echo "Your decided Server IP is:   $staticip"
+echo "Your network device ID (looks lie enp0s3): $devid"
+echo "Your decided laptop IP is:   $staticip"
 echo ""
 
 while true; do
